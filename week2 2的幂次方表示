@@ -1,0 +1,44 @@
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <string>
+
+using namespace std;
+
+inline int get_bit(int num, int i)
+{
+	return (num >> i) & 1;
+}
+
+void put(int num)
+{
+	bool first = true;
+	for (int i = 15; i >= 0; i--){
+		if (get_bit(num, i)){
+			if (first)
+				first = false;
+			else
+				cout << "+";
+			if (i == 0)
+				cout << "2(0)";
+			else if (i == 1)
+				cout << "2";
+			else{
+				cout << "2(";
+				put(i);
+				cout << ")";
+			}		
+		}
+	}
+
+
+}
+
+int main()
+{
+	int n;
+	cin >> n;
+	put(n);
+	system("pause");
+
+}

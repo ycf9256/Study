@@ -48,6 +48,7 @@ bool factor()
 		ptr++;
 		result = exp();
 		ptr++;
+		return result;
 		break;
 	case 'V':
 		ptr++;

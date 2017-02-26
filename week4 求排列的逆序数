@@ -1,0 +1,55 @@
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <string>
+
+using namespace std;
+
+int a[100];
+int b[100];
+
+
+void MergeCount(int a[], int s, int m, int e, int temp[], int &c)
+{
+	int pb = 0;
+	int p1 = s, p2 = m+1;
+	while (p1 <= m&&p2 <= e){
+		if (a[p1] < a[p2])
+			temp[pb++] = a[p2++];
+		else{
+			temp[pb++] = a[p1++];
+			c += e - p2 + 1;
+		}
+	}
+	while (p1 <= m)
+		temp[pb++] = a[p1++];
+	while (p2 <= e)
+		temp[pb++] = a[p2++];
+	for (int i = 0; i < e - s + 1; i++)
+		a[s + i] = temp[i];
+}
+
+void mergeSort(int a[], int s, int e, int temp[], int &c)
+{
+	if (s < e){
+		int mid = s + (e - s) / 2;
+		mergeSort(a, s, mid, temp, c);			//先求左边的逆序数
+		mergeSort(a, mid + 1, e, temp, c);		//再求右边的逆序数
+		MergeCount(a, s, mid, e, temp, c);		//最后求左右共有的逆序数
+	}
+}
+
+int main()
+{
+	int _cnt = 0;
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+		cin >> a[i];
+	mergeSort(a, 0, n - 1, b, _cnt);
+	cout << _cnt;
+
+
+	system("pause");
+
+}

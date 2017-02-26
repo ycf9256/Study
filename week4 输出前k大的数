@@ -1,0 +1,69 @@
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <string>
+
+using namespace std;
+
+int data[100000] = { 0 };
+
+void swap(int &a, int &b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
+
+
+int quickSort(int a[],int s, int e)
+{	
+	
+	if (s >= e)
+		return s;
+	int key = a[s];
+	int i = s;
+	int j = e; 
+	while (i != j){
+		while (i<j && a[j] >= key)
+			j--;
+		swap(a[i], a[j]);
+		while (i < j && a[i] <= key)
+			i++;
+		swap(a[i], a[j]);
+	}
+	return j;
+}
+
+void arrangeRignt(int a[], int s, int e, int k)
+{
+	int j;
+	j = quickSort(a, s, e);
+	int x = e - j + 1;
+	if (x == k)
+		return;
+	else if (x > k)
+		arrangeRignt(a, j + 1, e, k);
+	else
+		arrangeRignt(a, s, j - 1, k - x);
+
+}
+
+
+int main()
+{
+	int n;
+	int k;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+		cin >> data[i];
+	cin >> k;
+
+	arrangeRignt(data, 0, n - 1, k);
+	for (int i = 0; i < k; i++)
+		quickSort(data, n - k + i, n - 1);
+	for (int i = 0; i < k; i++)
+		cout << data[--n] << endl;
+
+	system("pause");
+
+}

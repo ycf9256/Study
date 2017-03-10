@@ -1,0 +1,31 @@
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <string>
+
+using namespace std;
+
+
+int put(int n, int m)
+{
+	if (n == 1)
+		return 1;
+	if (m == 1)
+		return 1;
+	if (m == n)
+		return 1 + put(n, m - 1);
+	if (m < n)
+		return put(n - m, m) + put(n, m - 1);
+	return put(n, n);
+}
+
+int main()
+{
+	int times;
+	int n;
+	cin >> n;
+	times = put(n, n);
+	cout << times;
+	system("pause");
+
+}
